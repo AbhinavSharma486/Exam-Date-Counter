@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080b14" />
+  <title>Exam Countdown</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Exam Countdown home">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>EXAM<span class="brand-light">/TIME</span></span>
+      </a>
+      <div class="topbar-right">
+        <span class="live-dot"></span>
+        <span class="live-label">LIVE COUNTDOWN</span>
+        <button class="icon-button" id="settingsToggle" aria-label="Open exam settings" title="Exam settings">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z"/><path d="m19.4 13.5 1.1.9-1.6 2.8-1.4-.5a7.8 7.8 0 0 1-1.6.9l-.3 1.5h-3.2l-.3-1.5a7.8 7.8 0 0 1-1.6-.9l-1.4.5-1.6-2.8 1.1-.9a7.4 7.4 0 0 1 0-1.9l-1.1-.9 1.6-2.8 1.4.5a7.8 7.8 0 0 1 1.6-.9l.3-1.5h3.2l.3 1.5a7.8 7.8 0 0 1 1.6.9l1.4-.5 1.6 2.8-1.1.9a7.4 7.4 0 0 1 0 1.9Z" transform="translate(-1 -1)"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow"><span class="eyebrow-line"></span> YOUR MOMENT IS GETTING CLOSER</div>
+      <h1>Every second<br> <span>counts.</span></h1>
+      <p class="subtitle">One date. One goal. Keep your eyes on the time left.</p>
+
+      <div class="countdown" aria-live="polite">
+        <article class="time-card time-card-days">
+          <div class="card-top"><span class="card-index">01</span><span class="card-dot"></span></div>
+          <div class="time-value" id="days">--</div>
+          <div class="time-label">DAYS</div>
+          <div class="card-bottom">UNTIL YOUR EXAM</div>
+        </article>
+        <article class="time-card">
+          <div class="card-top"><span class="card-index">02</span><span class="mini-icon">H</span></div>
+          <div class="time-value" id="hours">--</div>
+          <div class="time-label">HOURS</div>
+          <div class="card-bottom">TIME REMAINING</div>
+        </article>
+        <article class="time-card">
+          <div class="card-top"><span class="card-index">03</span><span class="mini-icon">M</span></div>
+          <div class="time-value" id="minutes">--</div>
+          <div class="time-label">MINUTES</div>
+          <div class="card-bottom">EVERY ONE MATTERS</div>
+        </article>
+        <article class="time-card seconds-card">
+          <div class="card-top"><span class="card-index">04</span><span class="live-pulse"></span></div>
+          <div class="time-value" id="seconds">--</div>
+          <div class="time-label">SECONDS</div>
+          <div class="card-bottom">TICKING RIGHT NOW</div>
+        </article>
+      </div>
+
+      <div class="date-strip">
+        <div class="date-info">
+          <div class="date-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M7.5 3v4M16.5 3v4M4 9.5h16"/></svg>
+          </div>
+          <div>
+            <div class="date-caption">YOUR EXAM DATE</div>
+            <div class="exam-date" id="examDateDisplay">Set your exam date</div>
+          </div>
+        </div>
+        <button class="edit-button" id="editDateButton"><span>Edit date</span><span aria-hidden="true">↗</span></button>
+      </div>
+
+      <div class="footer-note"><span class="tiny-star">✳</span> TIME DOESN'T WAIT. MAKE IT COUNT.</div>
+    </section>
+    <footer class="bottom-bar">
+      <span id="todayDisplay">TODAY · --</span>
+      <span class="timezone">LOCAL TIME <span class="timezone-dot"></span></span>
+    </footer>
+  </main>
+
+  <div class="modal-backdrop" id="settingsModal" aria-hidden="true">
+    <section class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="closeModal" aria-label="Close settings">×</button>
+      <div class="modal-kicker">COUNTDOWN SETTINGS</div>
+      <h2 id="modalTitle">Set your exam.</h2>
+      <p class="modal-description">Add the date and start time. Your countdown will update automatically.</p>
+      <form id="examForm">
+        <label for="examName">EXAM NAME <span class="optional">(OPTIONAL)</span></label>
+        <input id="examName" type="text" maxlength="60" placeholder="e.g. Final Examination" autocomplete="off" />
+        <label for="examDate">EXAM DATE</label>
+        <input id="examDate" type="date" required />
+        <label for="examTime">START TIME</label>
+        <input id="examTime" type="time" value="09:00" required />
+        <p class="form-error" id="formError" role="alert"></p>
+        <button class="save-button" type="submit">Save countdown <span>→</span></button>
+      </form>
+      <button class="clear-button" id="clearSettings" type="button">Clear saved exam</button>
+      <p class="privacy-note"><span>●</span> Saved only in this browser on this device.</p>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
